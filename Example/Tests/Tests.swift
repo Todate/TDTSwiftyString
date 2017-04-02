@@ -33,6 +33,8 @@ class TableOfContentsSpec: QuickSpec {
             context("with startIndex") {
                 it("these will pass") {
                     expect("constant".indexOf("n", startIndex: 3)) == 6
+                    expect("constant".indexOf("t", startIndex: 3)) == 4
+                    expect("constant".indexOf("z", startIndex: 3)) == -1
                 }
             }
         }
@@ -42,8 +44,10 @@ class TableOfContentsSpec: QuickSpec {
         describe("lastIndexOf") {
             context("only target") {
                 it("these will pass") {
+                    expect("changing".lastIndexOf("c")) == 0
                     expect("changing".lastIndexOf("g")) == 7
                     expect("meeting".lastIndexOf("e")) == 2
+                    expect("meeting".lastIndexOf("z")) == -1
                 }
             }
         }
