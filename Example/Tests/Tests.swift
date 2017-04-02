@@ -13,7 +13,7 @@ class TableOfContentsSpec: QuickSpec {
         describe("length") {
             context("") {
                 it("these will pass") {
-                    expect("".length) == 1
+                    expect("".length) == 0
                     expect("0123456789".length) == 10
                 }
             }
