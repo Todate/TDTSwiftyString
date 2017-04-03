@@ -146,6 +146,16 @@ for (idx, match) in matches.enumerated() {
 }
 ```
 
+**nsRange(target)**
+```Swift
+var testText = "0123456789"
+var target = "78"
+
+var range = testText.nsRange(of: target)
+print(range.location) // 7
+print(range.length) // 2
+```
+
 ## License
 
 TDTSwiftyString is available under the MIT license. See the LICENSE file for more info.
