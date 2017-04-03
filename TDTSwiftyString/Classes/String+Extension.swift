@@ -149,4 +149,12 @@ extension String {
 
         return matches as [NSTextCheckingResult]
     }
+
+    // MARK: - range
+
+    public func nsRange(of target: String) -> NSRange {
+        let range = (self as NSString).range(of: target)
+        return range
+    }
+
 }

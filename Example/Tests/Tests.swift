@@ -169,5 +169,36 @@ class TableOfContentsSpec: QuickSpec {
                 }
             }
         }
+
+        // MARK: - range
+
+        describe("range") {
+            context("target range") {
+                it("these will pass") {
+
+                    var testText = "0123456789"
+                    var target = "78"
+
+                    var range = testText.nsRange(of: target)
+                    expect(range.location) == 7
+                    expect(range.length) == 2
+
+                    testText = "テスト用の文字列です"
+                    target = "文字列"
+
+                    range = testText.nsRange(of: target)
+                    expect(range.location) == 5
+                    expect(range.length) == 3
+
+                    testText = "0123456789"
+                    target = "abc"
+
+                    range = testText.nsRange(of: target)
+
+                    expect(range.location == NSNotFound) == true
+                }
+            }
+        }
+
     }
 }
