@@ -136,8 +136,30 @@ class TableOfContentsSpec: QuickSpec {
         describe("RegularExpression") {
             context("operator") {
                 it("these will pass") {
-                    expect("email@test.com" =~ emailRegex) == true
-                    expect("email-test.com" !~ emailRegex) == true
+                    expect(emailRegex =~ "email@test.com") == 0
+                    expect(emailRegex =~ "email-test.com").to(beNil())
+
+                    expect("test" =~ "email@test.com") == 6
+
+                    expect("cde" =~ "abcdefghijk") == 2
+                    expect("cde" =~ "abcdefabcdef") == 2
+
+                    expect("cde" =~ "abcde") == 2
+                    expect("^cde" =~ "abcde").to(beNil())
+                    expect("cde$" =~ "abcde") == 2
+                    expect("^cde$" =~ "abcde").to(beNil())
+                    expect("^abcde$" =~ "abcde") == 0
+
+                    expect("CDE" =~ "abcdefghijk").to(beNil())
+
+                    expect("[0-9]+" =~ "abc0123abc0123") == 3
+
+                    expect("[0-9]{4}" =~ "abc0123abc0123") == 3
+                    expect("[0-9]{5}" =~ "abc0123abc0123").to(beNil())
+
+                    expect("\\d{4}" =~ "abc0123abc0123") == 3
+
+                    expect("\\d{4}-\\d{4}" =~ "090-1234-5678") == 4
                 }
             }
 

@@ -1,21 +1,15 @@
 import UIKit
 
 infix operator =~
-infix operator !~
 
-public func =~(lhs: String, rhs: String) -> Bool {
-    guard let regex = try? NSRegularExpression(pattern: rhs,
-                                               options: NSRegularExpression.Options()) else {
-                                                return false
+public func =~(pattern: String, target: String) -> Int? {
+    let matches = target.getMatches(pattern, options: NSRegularExpression.Options())
+
+    guard matches.count > 0 else {
+        return nil
     }
 
-    return regex.numberOfMatches(in: lhs,
-                                 options: NSRegularExpression.MatchingOptions(),
-                                 range: NSRange(location: 0, length: lhs.characters.count)) > 0
-}
-
-public func !~(lhs: String, rhs: String) -> Bool {
-    return !(lhs =~ rhs)
+    return matches[0].range.location
 }
 
 extension String {
@@ -126,8 +120,8 @@ extension String {
 
     // MARK: - RegularExpression
 
-    public func isMatch(_ regex: String, options: NSRegularExpression.Options) -> Bool {
-        guard let exp = try? NSRegularExpression(pattern: regex, options: options) else {
+    public func isMatch(_ pattern: String, options: NSRegularExpression.Options) -> Bool {
+        guard let exp = try? NSRegularExpression(pattern: pattern, options: options) else {
             return false
         }
 
@@ -138,8 +132,8 @@ extension String {
         return matchCount > 0
     }
 
-    public func getMatches(_ regex: String, options: NSRegularExpression.Options) -> [NSTextCheckingResult] {
-        guard let exp = try? NSRegularExpression(pattern: regex, options: options) else {
+    public func getMatches(_ pattern: String, options: NSRegularExpression.Options) -> [NSTextCheckingResult] {
+        guard let exp = try? NSRegularExpression(pattern: pattern, options: options) else {
             return []
         }
 

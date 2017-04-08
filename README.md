@@ -114,8 +114,10 @@ import TDTSwiftyString
 ```swift
 let emailRegex = "^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$"
 
-"email@test.com" =~ emailRegex // true
-"email-test.com" !~ emailRegex // true
+emailRegex =~ "email@test.com" // 0
+emailRegex =~ "email-test.com" // nil
+
+"test" =~ "email@test.com" // 6
 ```
 
 **isMatch(pattern, options)**
