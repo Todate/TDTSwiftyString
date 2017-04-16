@@ -3,7 +3,7 @@ import UIKit
 infix operator =~
 
 public func =~(pattern: String, target: String) -> Int? {
-    let matches = target.getMatches(pattern, options: NSRegularExpression.Options())
+    let matches: [NSTextCheckingResult] = target.getMatches(pattern, options: NSRegularExpression.Options())
 
     guard matches.count > 0 else {
         return nil
@@ -142,6 +142,29 @@ extension String {
                                   range: NSMakeRange(0, self.length))
 
         return matches as [NSTextCheckingResult]
+    }
+
+    public func getMatches(_ pattern: String, options: NSRegularExpression.Options) -> [String] {
+        var result: [String] = []
+
+        let matches: [NSTextCheckingResult] = self.getMatches(pattern, options: options)
+
+        if matches.count > 0 {
+            for (_, match) in matches.enumerated() {
+                let range = match.range
+
+                if range.location != NSNotFound {
+                    let matchString = self.substring(from: range.location,
+                                                     length: range.length)
+
+                    if !matchString.isEmpty {
+                        result.append(matchString)
+                    }
+                }
+            }
+        }
+
+        return result
     }
 
     // MARK: - range

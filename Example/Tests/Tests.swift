@@ -175,7 +175,7 @@ class TableOfContentsSpec: QuickSpec {
                     let testText = "email@test.com, other@test.com, another@test.com"
                     let matchStrings = ["email@test.com", "other@test.com", "another@test.com"]
 
-                    let matches = testText.getMatches(emailRegex, options: .caseInsensitive)
+                    let matches: [NSTextCheckingResult] = testText.getMatches(emailRegex, options: .caseInsensitive)
 
                     for (idx, match) in matches.enumerated() {
                         let range = match.range
@@ -188,6 +188,18 @@ class TableOfContentsSpec: QuickSpec {
                             }
                         }
                     }
+                }
+
+                it("camel case") {
+                    let testText = "CamelCaseText"
+                    let words = ["Camel", "Case", "Text"]
+                    let pattern = "[A-Z][a-z]+"
+
+                    let matches: [String] = testText.getMatches(pattern, options: [])
+
+                    expect(matches[0] == words[0]) == true
+                    expect(matches[1] == words[1]) == true
+                    expect(matches[2] == words[2]) == true
                 }
             }
         }
