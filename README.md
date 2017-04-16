@@ -148,6 +148,14 @@ for (idx, match) in matches.enumerated() {
 }
 ```
 
+```swift
+let testText = "CamelCaseText"
+let words = ["Camel", "Case", "Text"]
+let pattern = "[A-Z][a-z]+"
+
+let matches: [String] = testText.getMatches(pattern, options: [])   // ["Camel", "Case", "Text"]
+```
+
 **nsRange(target)**
 ```Swift
 var testText = "0123456789"
