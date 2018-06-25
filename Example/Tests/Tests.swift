@@ -234,5 +234,27 @@ class TableOfContentsSpec: QuickSpec {
             }
         }
 
+        // MARK: - height
+
+        describe("height") {
+            context("one row") {
+                it("these will pass") {
+                    let testText = "123"
+                    let height = testText.height(withConstrainedWidth: 320)
+
+                    expect(height) == 13.8
+                }
+            }
+
+            context("two rows") {
+                it("these will pass") {
+                    let testText = "12345678901234567890123456789012345678901234567890"
+                    let height = testText.height(withConstrainedWidth: 320)
+
+                    expect(height) == 27.6
+                }
+            }
+        }
+
     }
 }
