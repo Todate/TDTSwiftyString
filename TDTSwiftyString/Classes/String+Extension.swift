@@ -17,7 +17,7 @@ extension String {
     // MARK: - length
 
     public var length: Int {
-        return self.characters.count
+        return self.count
     }
 
     // MARK: - substring
@@ -54,7 +54,7 @@ extension String {
         let start = self.index(self.startIndex, offsetBy: from)
         let end = self.index(self.startIndex, offsetBy: from + length)
 
-        return self[Range(start ..< end)]
+        return String(self[Range(start ..< end)])
     }
 
     public subscript (r: CountableRange<Int>) -> String {
@@ -64,7 +64,7 @@ extension String {
         let start = index(startIndex, offsetBy: range.lowerBound)
         let end = index(start, offsetBy: range.upperBound - range.lowerBound)
 
-        return self[Range(start ..< end)]
+        return String(self[Range(start ..< end)])
     }
 
     public subscript (r: CountableClosedRange<Int>) -> String {
@@ -74,7 +74,7 @@ extension String {
         let start = index(startIndex, offsetBy: range.lowerBound)
         let end = index(start, offsetBy: range.upperBound - range.lowerBound + 1)
 
-        return self[Range(start ..< end)]
+        return String(self[Range(start ..< end)])
     }
 
     // MARK: - indexOf
@@ -174,4 +174,53 @@ extension String {
         return range
     }
 
+    // MARK: - height
+
+    public func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
+
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+
+        let boundingBox = self.boundingRect(with: constraintRect,
+                                            options: .usesLineFragmentOrigin,
+                                            attributes: [NSAttributedStringKey.font: font],
+                                            context: nil)
+
+        return boundingBox.height
+    }
+
+    public func height(withConstrainedWidth width: CGFloat) -> CGFloat {
+
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+
+        let boundingBox = self.boundingRect(with: constraintRect,
+                                            options: .usesLineFragmentOrigin,
+                                            context: nil)
+
+        return boundingBox.height
+    }
+
+    // MARK: - width
+
+    public func width(withConstrainedHeight height: CGFloat, font: UIFont) -> CGFloat {
+
+        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
+
+        let boundingBox = self.boundingRect(with: constraintRect,
+                                            options: .usesLineFragmentOrigin,
+                                            attributes: [NSAttributedStringKey.font: font],
+                                            context: nil)
+
+        return boundingBox.width
+    }
+
+    public func width(withConstrainedHeight height: CGFloat) -> CGFloat {
+
+        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
+
+        let boundingBox = self.boundingRect(with: constraintRect,
+                                            options: .usesLineFragmentOrigin,
+                                            context: nil)
+
+        return boundingBox.width
+    }
 }
